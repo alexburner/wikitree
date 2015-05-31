@@ -539,43 +539,40 @@ ForceGraph.prototype.centerOnNode = function (node) {
 ForceGraph.prototype.fitToView = function () {
     var self = this;
     var scale = self.zoom.scale();
+    var translate = self.zoom.translate();
+    var translateX = translate[0];
+    var translateY = translate[1];
     var graphBBox = self.group[0][0].getBBox();
+    var graphX = graphBBox.x;
+    var graphY = graphBBox.y;
+
+    console.log('graph x,y', graphX, graphY);
+
     var graphWidth = graphBBox.width * scale;
     var graphHeight = graphBBox.height * scale;
     var viewWidth = self.width;
     var viewHeight = self.height;
     var graphRatio = graphWidth / graphHeight;
     var viewRatio = viewWidth / viewHeight;
-
-    console.log('viewWidth', viewWidth);
-    console.log('viewHeight', viewHeight);
-    console.log('graphWidth', graphWidth);
-    console.log('graphHeight', graphHeight);
-
     var newScale = undefined;
     if (graphRatio > viewRatio) {
 
-        console.log('fitting to width');
+        console.log('scaling for width');
 
         newScale = viewWidth / (graphWidth / scale);
     } else {
 
-        console.log('fitting to height');
+        console.log('scaling for height');
 
         newScale = viewHeight / (graphHeight / scale);
     }
+    newScale *= 0.88;
     var newWidth = newScale * graphWidth;
     var newHeight = newScale * graphHeight;
-    // var newX = viewWidth / 2 - newWidth / 2;
-    // var newY = viewHeight / 2 - newHeight / 2;
-    var newX = newWidth / 2;
-    var newY = newHeight / 2;
-
-    console.log('newScale', newScale);
-    console.log('newWidth', newWidth);
-    console.log('newHeight', newHeight);
-    console.log('new x,y', newX, newY);
-
+    // var newX = (graphX / 2) * -1;
+    // var newY = (graphY / 2) * -1;
+    var newX = (viewWidth / 2) - (newWidth / 2);
+    var newY = (viewHeight / 2) - (newHeight / 2);
     self.zoom.scale(newScale);
     self.zoom.translate([newX, newY]);
     self.zoom.event(self.rect.transition().duration(600));
