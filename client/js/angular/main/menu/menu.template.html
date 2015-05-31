@@ -5,7 +5,7 @@
                 <i class="fa fa-close"></i>
             </button>
             <button ng-hide="open" ng-click="toggleMenu()" type="button" class="open-button btn btn-default btn-sm">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-fw fa-bars"></i>
             </button>
             <h3 class="title">
                 <a href="#" ng-click="toggleMenu()">
@@ -71,11 +71,14 @@
             </div>
         </div>
         <div class="map-controls">
-            <!-- <button ng-click="fitToView()" disabled="disabled" type="button" class="btn btn-default btn-sm">
-                <i class="fa fa-arrows-alt"></i>
-            </button> -->
+            <button ng-click="takeSnapshot()" type="button" class="btn btn-default btn-sm">
+                <i class="fa fa-fw fa-camera"></i>
+            </button>
             <button ng-click="locateCurrentNode()" type="button" class="btn btn-default btn-sm">
-                <i class="fa fa-location-arrow"></i>
+                <i class="fa fa-fw fa-location-arrow"></i>
+            </button>
+            <button ng-click="fitToView()" type="button" class="btn btn-default btn-sm">
+                <i class="fa fa-fw fa-arrows-alt"></i>
             </button>
         </div>
     </div>
