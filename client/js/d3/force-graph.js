@@ -535,3 +535,39 @@ ForceGraph.prototype.centerOnNode = function (node) {
     self.zoom.translate([translateX, translateY]);
     self.zoom.event(self.rect.transition().duration(600));
 };
+
+ForceGraph.prototype.fitToView = function () {
+    var self = this;
+    var graphBBox = self.group[0][0].getBBox();
+    var graphWidth = graphBBox.width;
+    var graphHeight = graphBBox.height;
+    var viewWidth = self.width;
+    var viewHeight = self.height;
+    var graphRatio = graphWidth / graphHeight;
+    var viewRatio = viewWidth / viewHeight;
+    if (graphRatio < viewRatio) {
+        self.fitToViewWidth({
+            width: graphWidth,
+            height: graphHeight
+        }, {
+            width: viewWidth,
+            height: viewHeight
+        });
+    } else {
+        self.fitToViewHeight({
+            width: graphWidth,
+            height: graphHeight
+        }, {
+            width: viewWidth,
+            height: viewHeight
+        });
+    }
+};
+
+ForceGraph.prototype.fitToViewWidth = function (graphSize, viewSize) {
+    var scale = viewSize.width / graphSize.width;
+};
+
+ForceGraph.prototype.fitToViewHeight = function (graphSize, viewSize) {
+
+};

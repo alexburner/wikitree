@@ -49,6 +49,15 @@
                     }
                 }
 
+                $scope.takeSnapshot = function () {
+                    $rootScope.$broadcast('request:graph:take_snapshot');
+                };
+
+                $scope.fitToView = function () {
+                    console.log("$scope.fitToView");
+                    $rootScope.$broadcast('request:graph:fit_to_view');
+                };
+
                 $scope.locateCurrentNode = function () {
                     $rootScope.$broadcast('request:graph:locate_current_node');
                 };

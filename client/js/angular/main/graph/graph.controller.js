@@ -15,6 +15,17 @@
                  * Global events
                  */
 
+                // handle "take snapshot" button
+                $scope.$on('request:graph:take_snapshot', function () {
+
+                });
+
+                // handle "fit to view" button
+                $scope.$on('request:graph:fit_to_view', function () {
+                    console.log("$scope.$on('request:graph:locate_current_node'");
+                    $scope.graph.fitToView();
+                });
+
                 // handle "locate current node" button
                 $scope.$on('request:graph:locate_current_node', function () {
                     var node = CurrentSession.getCurrentNode();
