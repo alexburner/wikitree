@@ -538,36 +538,45 @@ ForceGraph.prototype.centerOnNode = function (node) {
 
 ForceGraph.prototype.fitToView = function () {
     var self = this;
+    var scale = self.zoom.scale();
     var graphBBox = self.group[0][0].getBBox();
-    var graphWidth = graphBBox.width;
-    var graphHeight = graphBBox.height;
+    var graphWidth = graphBBox.width * scale;
+    var graphHeight = graphBBox.height * scale;
     var viewWidth = self.width;
     var viewHeight = self.height;
     var graphRatio = graphWidth / graphHeight;
     var viewRatio = viewWidth / viewHeight;
-    if (graphRatio < viewRatio) {
-        self.fitToViewWidth({
-            width: graphWidth,
-            height: graphHeight
-        }, {
-            width: viewWidth,
-            height: viewHeight
-        });
+
+    console.log('viewWidth', viewWidth);
+    console.log('viewHeight', viewHeight);
+    console.log('graphWidth', graphWidth);
+    console.log('graphHeight', graphHeight);
+
+    var newScale = undefined;
+    if (graphRatio > viewRatio) {
+
+        console.log('fitting to width');
+
+        newScale = viewWidth / (graphWidth / scale);
     } else {
-        self.fitToViewHeight({
-            width: graphWidth,
-            height: graphHeight
-        }, {
-            width: viewWidth,
-            height: viewHeight
-        });
+
+        console.log('fitting to height');
+
+        newScale = viewHeight / (graphHeight / scale);
     }
-};
+    var newWidth = newScale * graphWidth;
+    var newHeight = newScale * graphHeight;
+    // var newX = viewWidth / 2 - newWidth / 2;
+    // var newY = viewHeight / 2 - newHeight / 2;
+    var newX = newWidth / 2;
+    var newY = newHeight / 2;
 
-ForceGraph.prototype.fitToViewWidth = function (graphSize, viewSize) {
-    var scale = viewSize.width / graphSize.width;
-};
+    console.log('newScale', newScale);
+    console.log('newWidth', newWidth);
+    console.log('newHeight', newHeight);
+    console.log('new x,y', newX, newY);
 
-ForceGraph.prototype.fitToViewHeight = function (graphSize, viewSize) {
-
+    self.zoom.scale(newScale);
+    self.zoom.translate([newX, newY]);
+    self.zoom.event(self.rect.transition().duration(600));
 };
