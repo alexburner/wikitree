@@ -42,7 +42,7 @@
     top: 45px;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 410px;
 }
 
 #reader .article > .inner {
@@ -63,6 +63,7 @@
     right: 0;
     background: #CCC;
 }
+
 #reader .article .border-bottom {
     height: 1px;
     position: absolute;
@@ -79,6 +80,42 @@
     padding: 0;
     border: none;
     background: white;
+}
+
+#reader .note-editor {
+    height: 400px;
+    position: absolute;
+    /*top: 45px;*/
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#reader .note-editor > .inner {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    overflow: hidden;
+    background: white;
+}
+
+#reader .note-editor .border-top {
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #CCC;
+}
+#reader .note-editor .border-bottom {
+    height: 1px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #CCC;
 }
 
 #reader .ta-editor {
