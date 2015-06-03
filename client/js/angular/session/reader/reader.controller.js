@@ -10,6 +10,9 @@
             'Categories',
             function($scope, Resizer, Loading, Sessions, Articles, Searches, Categories) {
 
+                // for note editor
+                $scope.notes = '';
+
                 // for reader width
                 $scope.readerWidth = Resizer.size + 'px';
 
