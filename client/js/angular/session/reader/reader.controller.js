@@ -10,9 +10,6 @@
             'Categories',
             function($scope, Resizer, Loading, Sessions, Articles, Searches, Categories) {
 
-                // for note editor
-                $scope.notes = '';
-
                 // for reader width
                 $scope.readerWidth = Resizer.size + 'px';
 
@@ -230,9 +227,9 @@
                  * Load article if there is one
                  */
 
-                 if ($scope.session.get_current_node_id()) {
+                if ($scope.session.get_current_node_id()) {
                     $scope.updateFrameNode();
-                 }
+                }
 
             }
         ]);

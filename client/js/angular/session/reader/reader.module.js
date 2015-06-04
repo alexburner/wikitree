@@ -1,5 +1,5 @@
 (function() {
     angular.module('wikitree.session.reader', [
-    	'textAngular'
+    	'wikitree.session.reader.editor'
     ]);
 })();

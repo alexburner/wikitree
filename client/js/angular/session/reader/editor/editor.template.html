@@ -1,0 +1,17 @@
+<div class="note-editor">
+    <div class="border-top"></div>
+    <div class="border-bottom"></div>
+    <div class="inner">
+        <div class="scroll">
+            <div class="upper">
+                <div class="name">
+                    <input type="text" ng-model="name" class="form-control" placeholder="Add note name...">
+                </div>
+                <button type="button" class="close">
+                    &times;
+                </button>
+            </div>
+            <div text-angular ng-model="content" ta-toolbar="[['undo','redo'],['bold','italics','underline','strikeThrough'],['ul','ol','indent','outdent'],['justifyLeft','justifyCenter','justifyRight'],['html']]" ta-toolbar-button-class="btn btn-default btn-xs"></div>
+        </div>
+    </div>
+</div>
