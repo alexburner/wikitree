@@ -36,7 +36,14 @@
             <div class="border-bottom"></div>
             <div class="inner">
                 <div class="scroll">
-                    <input type="text" class="name-input form-control" placeholder="Add note node name...">
+                    <div class="upper">
+                        <div class="name">
+                            <input type="text" class="form-control" placeholder="Add note node name...">
+                        </div>
+                        <button type="button" class="close">
+                            &nbsp;&times;&nbsp;
+                        </button>
+                    </div>
                     <div text-angular ng-model="notes" ta-toolbar="[['undo','redo'],['bold','italics','underline','strikeThrough'],['ul','ol'],['indent','outdent'],['justifyLeft','justifyCenter','justifyRight'],['html']]" ta-toolbar-button-class="btn btn-default btn-xs"></div>
                 </div>
             </div>

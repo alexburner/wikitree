@@ -82,7 +82,7 @@
     background: white;
 }
 
-#reader .note-editor {
+.note-editor {
     height: 400px;
     position: absolute;
     /*top: 45px;*/
@@ -91,7 +91,7 @@
     bottom: 0;
     z-index: 10;
 }
-#reader .note-editor .border-top {
+.note-editor .border-top {
     height: 1px;
     position: absolute;
     top: 0;
@@ -99,7 +99,7 @@
     right: 0;
     background: #CCC;
 }
-#reader .note-editor .border-bottom {
+.note-editor .border-bottom {
     height: 1px;
     position: absolute;
     left: 0;
@@ -107,7 +107,7 @@
     bottom: 0;
     background: #CCC;
 }
-#reader .note-editor > .inner {
+.note-editor > .inner {
     position: absolute;
     top: 1px;
     left: 0;
@@ -116,7 +116,7 @@
     overflow: hidden;
     background: white;
 }
-#reader .note-editor > .inner > .scroll {
+.note-editor > .inner > .scroll {
     padding: 10px;
     position: absolute;
     top: 0;
@@ -126,30 +126,48 @@
     overflow: auto;
 }
 
-#reader .note-editor .name-input {
+.note-editor .upper {
+    width: 100%;
+    height: 35px;
     margin-bottom: 8px;
+    position: relative;
+}
+
+.note-editor .upper .name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 30px;
+    bottom: 0;
+}
+
+.note-editor .upper .name input {
     font-size: 16px;
     color: #333;
 }
 
-#reader .ta-root {
+.note-editor .upper .close {
+    line-height: 1.25em;
+}
+
+.note-editor .ta-root {
 
 }
 
-#reader .ta-toolbar {
+.note-editor .ta-toolbar {
     margin-bottom: 4px;
 }
 
-#reader .ta-toolbar .btn-group {
+.note-editor .ta-toolbar .btn-group {
     margin-bottom: 4px;
 }
 
-#reader .ta-toolbar .btn-xs {
+.note-editor .ta-toolbar .btn-xs {
     padding: 2px 8px;
     font-size: 14px;
 }
 
-#reader .ta-editor {
+.note-editor .ta-editor {
     min-height: 100px;
     height: auto;
     font-family: inherit;
