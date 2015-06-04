@@ -91,17 +91,6 @@
     bottom: 0;
     z-index: 10;
 }
-
-#reader .note-editor > .inner {
-    position: absolute;
-    top: 1px;
-    left: 0;
-    right: 0;
-    bottom: 1px;
-    overflow: hidden;
-    background: white;
-}
-
 #reader .note-editor .border-top {
     height: 1px;
     position: absolute;
@@ -118,12 +107,52 @@
     bottom: 0;
     background: #CCC;
 }
+#reader .note-editor > .inner {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    overflow: hidden;
+    background: white;
+}
+#reader .note-editor > .inner > .scroll {
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+#reader .note-editor .name-input {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+#reader .ta-root {
+
+}
+
+#reader .ta-toolbar {
+    margin-bottom: 4px;
+}
+
+#reader .ta-toolbar .btn-group {
+    margin-bottom: 4px;
+}
+
+#reader .ta-toolbar .btn-xs {
+    padding: 2px 8px;
+    font-size: 14px;
+}
 
 #reader .ta-editor {
-    min-height: 300px;
+    min-height: 100px;
     height: auto;
-    overflow: auto;
     font-family: inherit;
     font-size: 100%;
-    margin:20px 0;
+    overflow: auto;
 }
