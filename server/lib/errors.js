@@ -2,7 +2,7 @@
 
 var chalk =  require('chalk');
 
-var logger = require('./log')
+var logger = require('./logger')
 
 /**
  * Middleware - http error handler

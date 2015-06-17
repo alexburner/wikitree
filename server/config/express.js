@@ -4,6 +4,7 @@
  * Express configuration
  */
 
+var fs = require('fs');
 var path = require('path');
 
 var express = require('express');
@@ -18,6 +19,7 @@ var favicon = require('serve-favicon');
 var compress = require('compression');
 
 var env = require('./env');
+var logger = require('../lib/logger');
 var errors = require('../lib/errors');
 var router = require('../router');
 
@@ -30,6 +32,17 @@ module.exports = function () {
 
 	// log requests
 	app.use(morgan('dev'));
+	app.use(morgan('combined', {
+		stream: fs.createWriteStream(
+			path.resolve(
+				__dirname,
+				'..',
+				'..',
+				'log/morgan.log'
+			),
+			{ flags: 'a' }
+		)
+	}));
 
 	// enable gzip
 	app.use(compress());

@@ -2,7 +2,7 @@
 
 var path = require('path');
 
-var logger = require('../lib/log');
+var logger = require('../lib/logger');
 
 /**
  * Load app configurations by environment
