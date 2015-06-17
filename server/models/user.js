@@ -36,10 +36,10 @@ var userSchema = new Schema({
  * Methods
  */
 
-userSchema.generateHash = function (password) {
+userSchema.methods.generateHash = function (password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
-userSchema.validatePassword = function (password, hash) {
+userSchema.methods.validatePassword = function (password, hash) {
 	return bcrypt.compareSync(password, hash);
 };
 
