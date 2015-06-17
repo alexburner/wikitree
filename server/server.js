@@ -13,25 +13,26 @@ var https = require('https');
 
 var chalk = require('chalk');
 var Promise = require('bluebird');
+var mongoose = require('mongoose');
 
-var passport = require('./config/passport');
-var express = require('./config/express');
+var passportConfig = require('./config/passport');
+var expressConfig = require('./config/express');
 
 
 // expose promise for testing
 module.exports = new Promise(function (resolve, reject) {
-	//db.testConnection()
-	//	.then(function () {
+	mongoose.connect(env.mongo.uri, function (err) {
+		if (!err) {
 
 			/**
-			 * Success
+			 * DB success
 			 */
 
-			//console.log(chalk.bold.green('Database connection successful'));
+			logger.info(chalk.bold.green('Database connection successful'));
 
-			// configure passport & express
-			passport();
-			var app = express();
+			// configure
+			passportConfig();
+			var app = expressConfig();
 
 			// create HTTPS server and pass express app as handler
 			var httpsServer = https.createServer({
@@ -102,24 +103,24 @@ module.exports = new Promise(function (resolve, reject) {
 					return function handleShutdown() {
 						if (isShutDown) return;
 						else isShutDown = true;
-						console.log();
+						console.log(); // for ctrl+C gobbledygook
 						logger.warn(chalk.bold.yellow(signal + ' signal, shutting down servers...'));
 						// close http server
 						httpServer.close(function() {
-							logger.warn(chalk.bold.red('HTTP redirect server shut down'));
+							logger.warn(chalk.bold.yellow('HTTP redirect server shut down'));
 						});
 						// close https server
 						httpsServer.close(function() {
-							logger.warn(chalk.bold.red('HTTPS app server shut down'));
+							logger.warn(chalk.bold.yellow('HTTPS app server shut down'));
 							// shutdown database
-							/*db.shutdown()
-								.then(function () {
-									logger.warn(chalk.bold.red('Database shut down'));
-								})
-								.catch(function (err) {
-									logger.log(chalk.bold.magenta('Database failed to shut down'));
-									logger.log(err);
-								});*/
+							mongoose.disconnect(function (err) {
+								if (!err) {
+									logger.warn(chalk.bold.yellow('Database shut down'));
+								} else {
+									logger.error(chalk.bold.red('Database failed to shut down'));
+									logger.error(err);
+								}
+							});
 						});
 						// destroy remaining sockets
 						Object.keys(sockets).forEach(function (key) {
@@ -142,15 +143,18 @@ module.exports = new Promise(function (resolve, reject) {
 			// resolve promise with express app
 			resolve(app);
 
-		/*});
-		.catch(function (err) {
+		} else {
 
+			/**
+			 * DB failure
+			 */
 
-			console.error(chalk.bold.yellow('Unable to connect to database:', err));
+			console.error(chalk.bold.red('Unable to connect to database:', err));
 			console.error(chalk.bold.red('Server startup failed'));
 
 			// reject promise with error
 			reject(err);
 
-		});*/
+		}
+	});
 });
