@@ -27,8 +27,8 @@ module.exports.webRequiresLogin = function(req, res, next) {
 
 	// if request isn't authenticated
 	if (!req.isAuthenticated()) {
-		// redirect to public welcome
-		return res.redirect('/welcome');
+		// redirect to root
+		return res.redirect('/');
 	}
 
 	return next();
@@ -40,7 +40,7 @@ module.exports.webRequiresLogin = function(req, res, next) {
 module.exports.apiRequiresAdmin = function(req, res, next) {
 
 	// if request user isn't admin
-	if (!req.user.isAdmin) {
+	if (!req.user.admin) {
 		// send error 403
 		return next(errors.forbidden());
 	}
@@ -53,7 +53,7 @@ module.exports.apiRequiresAdmin = function(req, res, next) {
 module.exports.webRequiresAdmin = function(req, res, next) {
 
 	// if request user isn't admin
-	if (!req.user.isAdmin) {
+	if (!req.user.admin) {
 		// redirect to root
 		return res.redirect('/');
 	}

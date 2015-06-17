@@ -70,15 +70,6 @@ module.exports = function () {
 	app.use(helmet.ienoopen());
 	app.disable('x-powered-by');
 
-	// add custom res.json() method that namespaces with "data"
-	// to globally defeat JSON Array Constructor vulnerability
-	app.use(function (req, res, next) {
-		res.jsond = function (data) {
-			return res.json({ data: data });
-		}
-		return next();
-	});
-
 	// add routes
 	app.use('/', router());
 
@@ -86,4 +77,5 @@ module.exports = function () {
 	app.use(errors());
 
 	return app;
+
 };

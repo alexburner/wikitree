@@ -27,7 +27,7 @@ module.exports = function () {
 
 	// process the login form
 	router.post('/login', passport.authenticate('local-web', {
-		successRedirect: '/', // pass to angular
+		successRedirect: '/',
 		failureRedirect: '/auth/login',
 		failureFlash: true
 	}));

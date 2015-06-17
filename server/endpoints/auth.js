@@ -3,8 +3,7 @@
 var passport = require('passport');
 
 var errors = require('../lib/errors');
-
-var userModel = require('../models/user');
+var User = require('../models/user');
 
 
 /**
@@ -21,7 +20,7 @@ module.exports.current = function (req, res, next) {
 		user.password = undefined;
 	}
 	// send json
-	return res.jsond({
+	return res.json({
 		user: user
 	});
 };
@@ -45,7 +44,7 @@ module.exports.login = function (req, res, next) {
 				}
 				// success! return session user
 				user.password = undefined;
-				return res.jsond({
+				return res.json({
 					user: user
 				});
 			});
@@ -57,7 +56,7 @@ module.exports.login = function (req, res, next) {
 // POST domain.com/api/v1/auth/logout
 module.exports.logout = function (req, res, next) {
 	req.logout();
-	return res.jsond({
+	return res.json({
 		message: 'Success'
 	});
 };
@@ -65,7 +64,8 @@ module.exports.logout = function (req, res, next) {
 // register new user
 // POST domain.com/api/v1/auth/register
 module.exports.register = function (req, res, next) {
-	userModel.getByEmail(req.body.email)
+	// try to find user by posted email address
+	User.findOne({ email: req.body.email }).exec()
 		.then(function (user) {
 			// user already exist?
 			if (user) {
@@ -79,16 +79,16 @@ module.exports.register = function (req, res, next) {
 			userData.otherNames = req.body.otherNames;
 			userData.lastName = req.body.lastName;
 			userData.email = req.body.email;
-			userData.password = userModel.generateHash(req.body.password);
+			userData.password = User.generateHash(req.body.password);
 			// default user to lowest-level
 			userData.isAdmin = 0;
 			// insert user into database
-			userModel.insert(userData)
+			User.insert(userData)
 				.then(function (user) {
 					// overwrite password
 					user.password = undefined;
 					// return new user
-					return res.jsond({
+					return res.json({
 						user: user
 					});
 				})
@@ -108,7 +108,7 @@ module.exports.register = function (req, res, next) {
 // (web) register new user
 // POST domain.com/api/v1/auth/register
 module.exports.registerWeb = function (req, res, next) {
-	userModel.getByEmail(req.body.email)
+	User.getByEmail(req.body.email)
 		.then(function (user) {
 			// user already exist?
 			if (user) {
@@ -121,11 +121,11 @@ module.exports.registerWeb = function (req, res, next) {
 			userData.otherNames = req.body.otherNames;
 			userData.lastName = req.body.lastName;
 			userData.email = req.body.email;
-			userData.password = userModel.generateHash(req.body.password);
+			userData.password = User.generateHash(req.body.password);
 			// default user to lowest-level
 			userData.isAdmin = 0;
 			// insert user into database
-			userModel.insert(userData)
+			User.insert(userData)
 				.then(function (user) {
 					// add message & redirect to registration
 					req.flash('registerMessage', 'Sign up succesful, but now your account must be approved by an administrator');

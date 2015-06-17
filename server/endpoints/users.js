@@ -3,7 +3,6 @@
 var _ = require('lodash');
 
 var errors = require('../lib/errors');
-
 var userModel = require('../models/user');
 
 
@@ -21,7 +20,7 @@ module.exports.getAll = function (req, res, next) {
 				user.password = undefined;
 			});
 			// send users
-			return res.jsond({
+			return res.json({
 				users: users
 			});
 		})
@@ -46,7 +45,7 @@ module.exports.get = function (req, res, next) {
 			// overwrite password
 			user.password = undefined;
 			// send user
-			return res.jsond({
+			return res.json({
 				user: user
 			});
 		})
@@ -83,7 +82,7 @@ module.exports.create = function (req, res, next) {
 					// overwrite password
 					user.password = undefined;
 					// return new user
-					return res.jsond({
+					return res.json({
 						user: user
 					});
 				})
@@ -128,7 +127,7 @@ module.exports.update = function (req, res, next) {
 					// overwrite password
 					user.password = undefined;
 					// return updated user
-					return res.jsond({
+					return res.json({
 						user: user
 					});
 				})
@@ -163,7 +162,7 @@ module.exports.delete = function (req, res, next) {
 					// overwrite password
 					user.password = undefined;
 					// return deleted user
-					return res.jsond({
+					return res.json({
 						user: user
 					});
 				})
