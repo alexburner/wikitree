@@ -26,6 +26,7 @@
     "passport-local": "1.0.x",
     "redis": "^0.12.1",
     "serve-favicon": "2.2.x",
+    "shortid": "^2.2.2",
     "uglify-js": "2.4.x",
     "winston": "1.0.x"
   },
