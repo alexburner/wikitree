@@ -54,7 +54,7 @@ module.exports.update = function (req, res, next) {
                 user.password = User.generateHash(req.body.password);
             }
             // update user in database
-            user.save().exec()
+            user.save()
                 .then(function (user) {
                     // overwrite password
                     user.password = undefined;
@@ -89,7 +89,7 @@ module.exports.delete = function (req, res, next) {
                 );
             }
             // delete user from database
-            user.remove().exec()
+            user.remove()
                 .then(function () {
                     // overwrite password
                     user.password = undefined;

@@ -47,7 +47,7 @@ module.exports.register = function (req, res, next) {
                 admin: false
             });
             // insert user into database
-            newUser.save().exec()
+            newUser.save()
                 .then(function (user) {
                     // overwrite password
                     user.password = undefined;

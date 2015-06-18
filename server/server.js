@@ -30,8 +30,8 @@ module.exports = new Promise(function (resolve, reject) {
 
             logger.info(chalk.bold.green('Database connection successful'));
 
-            // configure
-            passportConfig();
+            // setup passport & express
+            var pass = passportConfig();
             var app = expressConfig();
 
             // create HTTPS server and pass express app as handler
@@ -137,7 +137,7 @@ module.exports = new Promise(function (resolve, reject) {
                 process.on('SIGTERM', makeHandleShutdown('SIGTERM'));
                 process.on('SIGINT', makeHandleShutdown('SIGINT'));
 
-            })();
+            })(httpServer, httpsServer, mongoose);
 
 
             // resolve promise with express app
