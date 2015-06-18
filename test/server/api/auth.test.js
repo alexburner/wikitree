@@ -37,14 +37,11 @@ describe('API - Auth', function () {
 
 	var newUser = null;
 	var newUserData = {
-		otherNames: 'newtest',
-		lastName: 'newtest',
+		name: 'newtest',
 		email: 'newtest',
 		password: 'newtest',
 		// note: these should NOT work
-		isApproved: 1,
-		isAdmin: 1,
-		role: 300
+		admin: true
 	};
 
 	it('should have empty current session', function (done) {

@@ -3,9 +3,9 @@
 /**
  * Private request router
  *
- * NOTE:     all authentication checks happen here in index.js
- *             all child files can assume authentication
- *             but each are responsible for authorization
+ * NOTE:    all authentication checks happen here in index.js
+ *          all child files can assume authentication
+ *          but each are responsible for authorization
  */
 
 var path = require('path');
@@ -19,7 +19,7 @@ module.exports = function () {
     var router = express.Router();
 
     // domain.com/api/v1/...
-    router.use('/api/v1', auth.apiRequiresLogin, apiRouter());
+    router.use('/api/v1', auth.requiresLogin, apiRouter());
 
     return router;
 };

@@ -41,54 +41,9 @@ module.exports = function () {
 
 
     /**
-     * Strategy - Local login (web)
-     */
-
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called "local"
-    passport.use('local-web', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true
-    }, function (req, email, password, done) {
-
-        // find a user whose email matches the one in the form
-        // we're checking to see if user trying to login exists
-        User.find({ email: email }).exec()
-            .then(function (user) {
-
-                // if no user is found, return message
-                if (!user) {
-                    return done(
-                        null,
-                        false,
-                        req.flash('loginMessage', 'Incorrect username or password.')
-                    );
-                }
-
-                // if user is found but password is wrong
-                if (!user.validatePassword(password)) {
-                    return done(
-                        null,
-                        false,
-                        req.flash('loginMessage', 'Incorrect username or password.')
-                    );
-                }
-
-                // all is well, return successful user
-                return done(null, user);
-
-            })
-            .catch(function (err) {
-                return done(err);
-            });
-    }));
-
-
-    /**
      * Strategy - Local login
      *
-     * restructured to return api-friendly errors
+     * structured to return api-friendly errors
      *
      */
 

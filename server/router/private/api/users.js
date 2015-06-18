@@ -7,21 +7,25 @@
 var express = require('express');
 
 var auth = require('../../../lib/auth');
-
 var userEndpoints = require('../../../endpoints/users');
 
 
 module.exports = function () {
     var router = express.Router();
 
-    // user CRUD
-    router.post('/', auth.apiRequiresAdmin, userEndpoints.create);
-    router.get('/:id', auth.apiRequiresAdmin, userEndpoints.get);
-    router.put('/:id', auth.apiRequiresAdmin, userEndpoints.update);
-    router.delete('/:id', auth.apiRequiresAdmin, userEndpoints.delete);
+    function requireSelf(req, res, next) {
+        if (req.params.id !== req.user.id) {
+            // user isn't self, send error 403
+            return next(errors.forbidden());
+        } else {
+            // continue
+            return next();
+        }
+    }
 
-    // all users
-    router.get('/', auth.apiRequiresAdmin, userEndpoints.getAll);
+    router.get('/:id', requireSelf, userEndpoints.get);
+    router.put('/:id', requireSelf, userEndpoints.update);
+    router.delete('/:id',requireSelf,  userEndpoints.delete);
 
     return router;
 };

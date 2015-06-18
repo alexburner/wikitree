@@ -18,6 +18,7 @@ module.exports = require(
         '..',
         '..',
         '..',
-        'wikitree-env/' + env
+        'wikitree-env',
+        env
     )
 );

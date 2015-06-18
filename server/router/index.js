@@ -14,10 +14,8 @@ var privateRouter = require('./private');
 module.exports = function () {
     var router = express.Router();
 
-    // static file requests
-    // (like apache, from domain.com/)
-    router.use(
-        '/',
+    // static files
+    router.use('/',
         express.static(
             path.resolve(
                 __dirname,
@@ -28,17 +26,16 @@ module.exports = function () {
         )
     );
 
-    // public api & web requests
+    // public requests
     router.use('/', publicRouter());
 
-    // private api & web requests
+    // private requests
     router.use('/', privateRouter());
 
     // CATCH-ALL
     // (any unhandled requests end here)
-    // send them the angular app root file
-    router.use(
-        '*',
+    // send them the client app root file
+    router.use('*',
         function (req, res) {
             return res.sendFile(
                 path.resolve(

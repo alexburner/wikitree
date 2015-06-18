@@ -16,7 +16,10 @@ var userSchema = new Schema({
         unique: true,
         'default': shortid.generate
     },
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
@@ -26,7 +29,10 @@ var userSchema = new Schema({
         type: String,
         required: true
     },
-    admin: Boolean,
+    admin: {
+        type: Boolean,
+        'default': false
+    },
     created_at: Date,
     updated_at: Date
 });

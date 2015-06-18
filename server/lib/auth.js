@@ -8,9 +8,8 @@ var errors = require('./errors');
  */
 
 
-// -> api request route
 // require user login
-module.exports.apiRequiresLogin = function(req, res, next) {
+module.exports.requiresLogin = function(req, res, next) {
 
     // if request isn't authenticated
     if (!req.isAuthenticated()) {
@@ -21,41 +20,14 @@ module.exports.apiRequiresLogin = function(req, res, next) {
     return next();
 };
 
-// -> web request route
-// require user login
-module.exports.webRequiresLogin = function(req, res, next) {
 
-    // if request isn't authenticated
-    if (!req.isAuthenticated()) {
-        // redirect to root
-        return res.redirect('/');
-    }
-
-    return next();
-};
-
-
-// -> api request route
 // require user admin status
-module.exports.apiRequiresAdmin = function(req, res, next) {
+module.exports.requiresAdmin = function(req, res, next) {
 
     // if request user isn't admin
     if (!req.user.admin) {
         // send error 403
         return next(errors.forbidden());
-    }
-
-    return next();
-};
-
-// -> web request route
-// require user admin status
-module.exports.webRequiresAdmin = function(req, res, next) {
-
-    // if request user isn't admin
-    if (!req.user.admin) {
-        // redirect to root
-        return res.redirect('/');
     }
 
     return next();
