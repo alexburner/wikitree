@@ -18,7 +18,9 @@ $ npm install
 ```
 (which should also trigger `bower install`)
 
-Then, just run:
+## Running
+
+Just run:
 ```
 $ npm start
 ```
@@ -36,9 +38,12 @@ $ gulp watch
 ```
 (for gulp build & rebuild on client code change)
 
-Congrats! In development, the app should be available on:
-- [http://localhost:1111](http://localhost:1111)
-- [https://localhost:2222](https://localhost:2222)
+## Testing
+
+For testing, run:
+```
+$ npm test
+```
 
 
 
