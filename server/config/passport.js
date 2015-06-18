@@ -8,7 +8,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var errors = require('../lib/errors');
-var User = require('../models/user');
+var User = require('../components/users/user.model');
 
 
 module.exports = function () {
@@ -42,9 +42,7 @@ module.exports = function () {
 
     /**
      * Strategy - Local login
-     *
      * structured to return api-friendly errors
-     *
      */
 
     // we are using named strategies since we have one for login and one for signup

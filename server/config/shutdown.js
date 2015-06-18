@@ -1,9 +1,13 @@
 'use strict';
 
-var logger = require('../lib/logger');
 var chalk = require('chalk');
 
-// graceful shutdown
+var logger = require('../lib/logger');
+
+/**
+ * Graceful shutdown
+ */
+
 // when the process is killed, this will close the server, refusing all new requests
 // but continuing to process existing ones, calling the callback when finished
 

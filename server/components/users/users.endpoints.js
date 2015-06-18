@@ -1,18 +1,35 @@
 'use strict';
 
-var _ = require('lodash');
-
-var errors = require('../lib/errors');
-var User = require('../models/user');
+var errors = require('../../lib/errors');
+var User = require('./user.model');
 
 
 /**
  * Endpoints
  */
 
-// read user
-// GET domain.com/api/v1/users/:id
-module.exports.get = function (req, res, next) {
+// GET - read all users
+module.exports.readAll = function (req, res, next) {
+    User.find().exec()
+        .then(function (users) {
+            // overwrite passwords
+            users.forEach(function (user) {
+                user.password = undefined;
+            });
+            // send users
+            return res.json({
+                users: users
+            });
+        })
+        .catch(function (err) {
+            return next(
+                errors.internalServerError(err)
+            );
+        });
+};
+
+// GET - read user
+module.exports.read = function (req, res, next) {
     User.findById(req.params.id).exec()
         .then(function (user) {
             if (!user) {
@@ -35,8 +52,47 @@ module.exports.get = function (req, res, next) {
         });
 };
 
-// update user
-// PUT domain.com/api/v1/users/:id
+// POST - create user
+module.exports.create = function (req, res, next) {
+    User.find({ email: req.body.email }).exec()
+        .then(function (user) {
+            // user already exist?
+            if (user) {
+                // send error 409
+                return next(
+                    errors.conflict('User already exists')
+                );
+            }
+            // create new user
+            var newUser = User({
+                name: req.body.name,
+                email: req.body.email,
+                password: User.generateHash(req.body.password)
+            });
+            // insert user into database
+            newUser.save()
+                .then(function (user) {
+                    // overwrite password
+                    user.password = undefined;
+                    // return new user
+                    return res.json({
+                        user: user
+                    });
+                })
+                .catch(function (err) {
+                    return next(
+                        errors.internalServerError(err)
+                    );
+                });
+        })
+        .catch(function (err) {
+            return next(
+                errors.internalServerError(err)
+            );
+        });
+};
+
+// PUT - update user
 module.exports.update = function (req, res, next) {
     User.findById(req.params.id).exec()
         .then(function (user) {
@@ -76,8 +132,7 @@ module.exports.update = function (req, res, next) {
         });
 };
 
-// delete user
-// DELETE domain.com/api/v1/users/:id
+// DELETE - delete user
 module.exports.delete = function (req, res, next) {
     User.findById(req.params.id).exec()
         .then(function (user) {

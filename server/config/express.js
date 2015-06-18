@@ -9,7 +9,6 @@ var path = require('path');
 
 var express = require('express');
 var passport = require('passport');
-var flash = require('connect-flash');
 var morgan = require('morgan');
 var helmet = require('helmet');
 var cookieParser = require('cookie-parser');
@@ -17,14 +16,15 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var compress = require('compression');
+var glob = require('glob');
 
 var env = require('./env');
 var logger = require('../lib/logger');
 var errors = require('../lib/errors');
-var router = require('../router');
 
 module.exports = function () {
     var app = express();
+
 
     /**
      * Middleware fiesta
@@ -58,10 +58,6 @@ module.exports = function () {
     app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    // setup ejs templating for server-side views
-    app.set('view engine', 'ejs');
-    app.set('views', path.resolve(__dirname, '..', 'views'));
-
     // express session
     app.use(session({
         secret: env.session_secret,
@@ -73,9 +69,6 @@ module.exports = function () {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // use connect flash for flash messages
-    app.use(flash());
-
     // use helmet to secure express headers
     app.use(helmet.xframe());
     app.use(helmet.xssFilter());
@@ -83,8 +76,50 @@ module.exports = function () {
     app.use(helmet.ienoopen());
     app.disable('x-powered-by');
 
-    // add routes
-    app.use('/', router());
+
+    /**
+     * Routes
+     */
+
+    // static files
+    app.use('/',
+        express.static(
+            path.resolve(
+                __dirname,
+                '..',
+                '..',
+                'client'
+            )
+        )
+    );
+
+    // component routers
+    glob.sync(__dirname + '/../components/**/*.router.js')
+        .forEach(function (filename) {
+            // add component router to app
+            app.use('/', require(filename)());
+        });
+
+    // api 404
+    app.use('/api/v1', function (req, res, next) {
+        next(errors.notFound());
+    });
+
+    // CATCH-ALL
+    // (any unhandled requests end here)
+    // send them the client app root file
+    app.use('*',
+        function (req, res) {
+            return res.sendFile(
+                path.resolve(
+                    __dirname,
+                    '..',
+                    '..',
+                    'client/index.html'
+                )
+            );
+        }
+    );
 
     // add http error handler
     app.use(errors());

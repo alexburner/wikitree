@@ -1,8 +1,13 @@
 'use strict';
 
+/**
+ * User model
+ */
+
 var shortid = require('shortid');
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
 
 
@@ -10,12 +15,14 @@ var Schema = mongoose.Schema;
  * Schema
  */
 
-var userSchema = new Schema({
+var User = new Schema({
+
     _id: {
         type: String,
         unique: true,
         'default': shortid.generate
     },
+
     name: {
         type: String,
         required: true
@@ -33,8 +40,10 @@ var userSchema = new Schema({
         type: Boolean,
         'default': false
     },
+
     created_at: Date,
     updated_at: Date
+
 });
 
 
@@ -42,7 +51,7 @@ var userSchema = new Schema({
  * Events
  */
 
-userSchema.pre('save', function(next) {
+User.pre('save', function(next) {
     var date = new Date();
     this.created_at = this.created_at || currentDate;
     this.updated_at = currentDate;
@@ -54,7 +63,7 @@ userSchema.pre('save', function(next) {
  * Statics (exist on Model itself)
  */
 
-userSchema.statics.generateHash = function (password) {
+User.statics.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
@@ -63,7 +72,7 @@ userSchema.statics.generateHash = function (password) {
  * Methods (exist on Model instance)
  */
 
-userSchema.methods.validatePassword = function (password) {
+User.methods.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
@@ -72,5 +81,4 @@ userSchema.methods.validatePassword = function (password) {
  * Model
  */
 
-var User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = mongoose.model('User', User);

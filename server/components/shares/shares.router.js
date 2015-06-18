@@ -1,17 +1,17 @@
 'use strict';
 
-/**
- * Public API router
- */
-
 var express = require('express');
 
-var authRouter = require('./auth');
+var auth = require('../../lib/auth');
+var userEndpoints = require('./shares.endpoints');
+
+
+/**
+ * Shares router
+ */
 
 module.exports = function () {
     var router = express.Router();
-
-    router.use('/auth', authRouter());
 
     return router;
 };
