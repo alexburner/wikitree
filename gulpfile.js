@@ -1,5 +1,8 @@
+'use strict';
+
 var del = require('del');
 var path = require('path');
+
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
@@ -13,10 +16,14 @@ var debug = require('gulp-debug');
 var sourcemaps = require('gulp-sourcemaps');
 var es = require('event-stream');
 
+
+/**
+ * Build CSS
+ */
+
 gulp.task('build-client-css', function() {
 
     var allCSS = gulp.src([
-        // all css files
         path.join(
             __dirname,
             'client',
@@ -43,9 +50,14 @@ gulp.task('build-client-css', function() {
         ));
 });
 
-gulp.task('build-client-js', function(){
 
-    // write all files, in order to a concat file
+/**
+ * Build JS
+ */
+
+gulp.task('build-client-js', function () {
+
+    // write all files, in order, to a concat file
     var allJS = gulp.src([
         path.join(
             __dirname,
@@ -98,56 +110,140 @@ gulp.task('build-client-js', function(){
 
 });
 
-gulp.task('build', ['build-client-css', 'build-client-js'], function(){
-    return;
-});
 
-gulp.task('clean',function(cb) {
+/**
+ * Clean
+ */
+
+gulp.task('clean', function(cb) {
     del(['client/build/**/*'], cb);
 });
 
-gulp.task('dev', function() {
-    // runs nodemon on the server file and executed the default task
-    nodemon({
-        script: path.join(
-            __dirname,
-            'server',
-            'server.js'
-        ),
-        ext: 'js',
-        ignore: ['node_modules/**']
-    }).on('restart', ['default']);
 
-    gulp.start('default');
+/**
+ * Build
+ */
+
+gulp.task('build', ['clean'], function () {
+    gulp.start('build-client-css');
+    gulp.start('build-client-js');
 });
 
-gulp.task('default', ['clean'], function(){
 
-    gulp.start('build');
+/**
+ * Watch
+ */
 
+gulp.task('watch', ['build'], function () {
+
+    // watch js changes
     watch(path.join(
         __dirname,
         'client',
         'js',
         '**',
         '*.js'
-    ), function() {
+    ), function () {
         gulp.start('build-client-js');
     });
 
+    // watch css changes
     watch(path.join(
         __dirname,
         'client',
         'css',
         '**',
         '*.css'
-    ), function() {
+    ), function () {
         gulp.start('build-client-css');
     });
 
 });
 
-// ** stub for running unit & integration tests
-gulp.task('test', function(){
+
+/**
+ * Default
+ */
+
+gulp.task('default', ['watch']);
+
+
+/**
+ * Start - development
+ */
+
+gulp.task('start-local', function() {
+
+    /**
+     *
+     *  NOTE - currently not working (nodemon does not restart w/ changes)
+     *
+     */
+
+    // start nodemon
+    nodemon({
+        watch: [path.resolve(
+            __dirname,
+            'server',
+            '**',
+            '*.js'
+        )],
+        script: path.resolve(
+            __dirname,
+            'server',
+            'server.js'
+        ),
+        ext: 'js',
+        env: { 'NODE_ENV': 'local' }
+    })
+        // execute watch task
+        .on('start', ['watch'])
+        .on('change', ['watch']);
+
+});
+
+
+/**
+ * Start - production
+ */
+
+gulp.task('start-release', function() {
+
+    /**
+     *
+     *  NOTE - currently not needed (just use npm start)
+     *
+     */
+
+    // execute build task
+    gulp.start('build', function () {
+
+        // start nodemon
+        nodemon({
+            watch: [path.resolve(
+                __dirname,
+                'server',
+                '**',
+                '*.js'
+            )],
+            script: path.resolve(
+                __dirname,
+                'server',
+                'server.js'
+            ),
+            ext: 'js',
+            env: { 'NODE_ENV': 'release' }
+        });
+
+    });
+
+});
+
+
+/**
+ * Test
+ */
+
+gulp.task('test', function () {
     return;
 });

@@ -13,11 +13,11 @@ var env = process.env.NODE_ENV || 'local';
 logger.info('Environment = "' + env + '"');
 
 module.exports = require(
-	path.resolve(
-		__dirname,
-		'..',
-		'..',
-		'..',
-		'wikitree-env/' + env
-	)
+    path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'wikitree-env/' + env
+    )
 );

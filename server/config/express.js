@@ -24,71 +24,71 @@ var errors = require('../lib/errors');
 var router = require('../router');
 
 module.exports = function () {
-	var app = express();
+    var app = express();
 
-	/**
-	 * Middleware fiesta
-	 */
+    /**
+     * Middleware fiesta
+     */
 
-	// log requests
-	app.use(morgan('dev'));
-	app.use(morgan('combined', {
-		stream: fs.createWriteStream(
-			path.resolve(
-				__dirname,
-				'..',
-				'..',
-				'log/morgan.log'
-			),
-			{ flags: 'a' }
-		)
-	}));
+    // log requests
+    app.use(morgan('dev'));
+    app.use(morgan('combined', {
+        stream: fs.createWriteStream(
+            path.resolve(
+                __dirname,
+                '..',
+                '..',
+                'log/morgan.log'
+            ),
+            { flags: 'a' }
+        )
+    }));
 
-	// enable gzip
-	app.use(compress());
+    // enable gzip
+    app.use(compress());
 
-	// serve favicon
-	app.use(favicon(path.resolve(
-		__dirname, '..', '..', 'client/favicon.ico'
-	)));
+    // serve favicon
+    app.use(favicon(path.resolve(
+        __dirname, '..', '..', 'client/favicon.ico'
+    )));
 
-	// parse all the things
-	app.use(cookieParser());
-	app.use(bodyParser.json());
-	app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-	app.use(bodyParser.urlencoded({ extended: true }));
+    // parse all the things
+    app.use(cookieParser());
+    app.use(bodyParser.json());
+    app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+    app.use(bodyParser.urlencoded({ extended: true }));
 
-	// setup ejs templating for server-side views
-	app.set('view engine', 'ejs');
-	app.set('views', path.resolve(__dirname, '..', 'views'));
+    // setup ejs templating for server-side views
+    app.set('view engine', 'ejs');
+    app.set('views', path.resolve(__dirname, '..', 'views'));
 
-	// express session
-	app.use(session({
-		secret: env.session_secret,
-		saveUninitialized: true,
-		resave: true
-	}));
+    // express session
+    app.use(session({
+        secret: env.session_secret,
+        saveUninitialized: true,
+        resave: true
+    }));
 
-	// passport session
-	app.use(passport.initialize());
-	app.use(passport.session());
+    // passport session
+    app.use(passport.initialize());
+    app.use(passport.session());
 
-	// use connect flash for flash messages
-	app.use(flash());
+    // use connect flash for flash messages
+    app.use(flash());
 
-	// use helmet to secure express headers
-	app.use(helmet.xframe());
-	app.use(helmet.xssFilter());
-	app.use(helmet.nosniff());
-	app.use(helmet.ienoopen());
-	app.disable('x-powered-by');
+    // use helmet to secure express headers
+    app.use(helmet.xframe());
+    app.use(helmet.xssFilter());
+    app.use(helmet.nosniff());
+    app.use(helmet.ienoopen());
+    app.disable('x-powered-by');
 
-	// add routes
-	app.use('/', router());
+    // add routes
+    app.use('/', router());
 
-	// add http error handler
-	app.use(errors());
+    // add http error handler
+    app.use(errors());
 
-	return app;
+    return app;
 
 };

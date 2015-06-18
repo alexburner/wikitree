@@ -10,54 +10,54 @@ var passport = require('passport');
 var authEndpoints = require('../../endpoints/auth');
 
 module.exports = function () {
-	var router = express.Router();
+    var router = express.Router();
 
 
-	/**
-	 * Login
-	 */
+    /**
+     * Login
+     */
 
-	// show the login form
-	router.get('/login', function (req, res) {
-		// render the page and pass in any flash data if it exists
-		return res.render('login.ejs', {
-			message: req.flash('loginMessage')
-		});
-	});
+    // show the login form
+    router.get('/login', function (req, res) {
+        // render the page and pass in any flash data if it exists
+        return res.render('login.ejs', {
+            message: req.flash('loginMessage')
+        });
+    });
 
-	// process the login form
-	router.post('/login', passport.authenticate('local-web', {
-		successRedirect: '/',
-		failureRedirect: '/auth/login',
-		failureFlash: true
-	}));
-
-
-	/**
-	 * Register
-	 */
-
-	// show the registration form
-	router.get('/register', function (req, res) {
-		// render the page and pass in any flash data if it exists
-		return res.render('register.ejs', {
-			message: req.flash('registerMessage')
-		});
-	});
-
-	// process the registration form
-	router.post('/register', authEndpoints.registerWeb);
+    // process the login form
+    router.post('/login', passport.authenticate('local-web', {
+        successRedirect: '/',
+        failureRedirect: '/auth/login',
+        failureFlash: true
+    }));
 
 
-	/**
-	 * Logout
-	 */
+    /**
+     * Register
+     */
 
-	router.get('/logout', function (req, res) {
-		req.logout();
-		return res.redirect('/');
-	});
+    // show the registration form
+    router.get('/register', function (req, res) {
+        // render the page and pass in any flash data if it exists
+        return res.render('register.ejs', {
+            message: req.flash('registerMessage')
+        });
+    });
+
+    // process the registration form
+    router.post('/register', authEndpoints.registerWeb);
 
 
-	return router;
+    /**
+     * Logout
+     */
+
+    router.get('/logout', function (req, res) {
+        req.logout();
+        return res.redirect('/');
+    });
+
+
+    return router;
 };

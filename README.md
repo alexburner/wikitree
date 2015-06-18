@@ -12,22 +12,29 @@ Fork & clone both the main repo and the env repo (these are designed to live as 
 - Main repo: https://github.com/wikitree-website/wikitree
 - Env repo: https://github.com/wikitree-website/wikitree-env
 
-In the main repo, run: 
+In the main repo, run:
 ```
 $ npm install
 ```
 (which should also trigger `bower install`)
 
-Then, for production, run:
+Then, just run:
 ```
-$ gulp build
 $ npm start
 ```
+(which should also trigger `gulp build`)
 
-Or, for development, just run:
+Or, run:
 ```
-$ gulp dev
+$ nodemon server/server.js
 ```
+(for node restart on server code change)
+
+And also run:
+```
+$ gulp watch
+```
+(for gulp build & rebuild on client code change)
 
 Congrats! In development, the app should be available on:
 - [http://localhost:1111](http://localhost:1111)

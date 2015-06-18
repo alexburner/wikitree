@@ -12,26 +12,26 @@ var errors = require('./errors');
 // require user login
 module.exports.apiRequiresLogin = function(req, res, next) {
 
-	// if request isn't authenticated
-	if (!req.isAuthenticated()) {
-		// send error 401
-		return next(errors.unauthorized());
-	}
+    // if request isn't authenticated
+    if (!req.isAuthenticated()) {
+        // send error 401
+        return next(errors.unauthorized());
+    }
 
-	return next();
+    return next();
 };
 
 // -> web request route
 // require user login
 module.exports.webRequiresLogin = function(req, res, next) {
 
-	// if request isn't authenticated
-	if (!req.isAuthenticated()) {
-		// redirect to root
-		return res.redirect('/');
-	}
+    // if request isn't authenticated
+    if (!req.isAuthenticated()) {
+        // redirect to root
+        return res.redirect('/');
+    }
 
-	return next();
+    return next();
 };
 
 
@@ -39,24 +39,24 @@ module.exports.webRequiresLogin = function(req, res, next) {
 // require user admin status
 module.exports.apiRequiresAdmin = function(req, res, next) {
 
-	// if request user isn't admin
-	if (!req.user.admin) {
-		// send error 403
-		return next(errors.forbidden());
-	}
+    // if request user isn't admin
+    if (!req.user.admin) {
+        // send error 403
+        return next(errors.forbidden());
+    }
 
-	return next();
+    return next();
 };
 
 // -> web request route
 // require user admin status
 module.exports.webRequiresAdmin = function(req, res, next) {
 
-	// if request user isn't admin
-	if (!req.user.admin) {
-		// redirect to root
-		return res.redirect('/');
-	}
+    // if request user isn't admin
+    if (!req.user.admin) {
+        // redirect to root
+        return res.redirect('/');
+    }
 
-	return next();
+    return next();
 };
