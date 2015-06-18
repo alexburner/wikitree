@@ -18,22 +18,24 @@ $ npm install
 ```
 (which should also trigger `bower install`)
 
-## Running
+## Running (simple)
 
-To just get things going, run:
+To get things going, just run:
 ```
 $ npm start
 ```
 (which should also trigger `gulp build`)
 
-**Or, if you want things to update as you code, run two processes...**
+## Running (complex)
 
-For node restart on server code change:
+**If you want things to update as you code, run two processes...**
+
+For node start & restart on server code change:
 ```
 $ nodemon server/server.js
 ```
 
-For gulp build & rebuild on client code change
+For gulp build & rebuild on client code change:
 ```
 $ gulp watch
 ```
