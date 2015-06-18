@@ -20,23 +20,23 @@ $ npm install
 
 ## Running
 
-Just run:
+To just get things going, run:
 ```
 $ npm start
 ```
 (which should also trigger `gulp build`)
 
-Or, run:
+**Or, if you want things to update as you code, run two processes...**
+
+For node restart on server code change:
 ```
 $ nodemon server/server.js
 ```
-(for node restart on server code change)
 
-And also run:
+For gulp build & rebuild on client code change
 ```
 $ gulp watch
 ```
-(for gulp build & rebuild on client code change)
 
 ## Testing
 
