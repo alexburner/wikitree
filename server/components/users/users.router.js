@@ -3,7 +3,7 @@
 var express = require('express');
 
 var auth = require('../../lib/auth');
-var userEndpoints = require('./users.endpoints');
+var endpoints = require('./users.endpoints');
 
 
 /**

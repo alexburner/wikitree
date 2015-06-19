@@ -3,7 +3,7 @@
 var express = require('express');
 
 var auth = require('../../lib/auth');
-var selfEndpoints = require('./self.endpoints');
+var endpoints = require('./self.endpoints');
 
 
 /**
@@ -17,9 +17,9 @@ module.exports = function () {
     router.use('/api/v1/self', auth.requiresLogin);
 
     // read, update, delete self
-    router.get('/api/v1/self', selfEndpoints.read);
-    router.put('/api/v1/self', selfEndpoints.update);
-    router.delete('/api/v1/self',  selfEndpoints.delete);
+    router.get('/api/v1/self', endpoints.read);
+    router.put('/api/v1/self', endpoints.update);
+    router.delete('/api/v1/self', endpoints.delete);
 
     return router;
 };
