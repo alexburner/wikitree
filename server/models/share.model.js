@@ -15,7 +15,7 @@ var Schema = mongoose.Schema;
  * Schema
  */
 
-var Share = new Schema({
+var ShareSchema = new Schema({
 
     _id: {
         type: String,
@@ -30,11 +30,11 @@ var Share = new Schema({
 
     createdAt: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     }
 
 });
@@ -44,7 +44,7 @@ var Share = new Schema({
  * Events
  */
 
-Share.pre('save', function(next) {
+ShareSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
     next();
 });
@@ -54,4 +54,4 @@ Share.pre('save', function(next) {
  * Model
  */
 
-module.exports = mongoose.model('Share', Share);
+module.exports = mongoose.model('Share', ShareSchema);

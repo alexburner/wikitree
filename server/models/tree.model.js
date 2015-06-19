@@ -9,15 +9,15 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var Node = require('./node.schema');
-var Link = require('./link.schema');
+var NodeSchema = require('./node.schema');
+var LinkSchema = require('./link.schema');
 
 
 /**
  * Schema
  */
 
-var Tree = new Schema({
+var TreeSchema = new Schema({
 
     _id: {
         type: String,
@@ -31,21 +31,23 @@ var Tree = new Schema({
     },
 
     name: String,
-    nodes: [Node],
-    links: [Link],
+    nodes: [NodeSchema],
+    links: [LinkSchema],
     history: {
-        currentId: String, // Node id
-        prevIds: Array, // [Node ids]
-        nextIds: Array // [Node ids]
+        currentId: String, // Node ID
+        prevIds: Array, // [Node IDs]
+        nextIds: Array // [Node IDs]
     },
+
+    createdBy: String, // User ID
 
     createdAt: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     }
 
 });
@@ -55,7 +57,7 @@ var Tree = new Schema({
  * Events
  */
 
-Tree.pre('save', function(next) {
+TreeSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
     next();
 });
@@ -65,4 +67,4 @@ Tree.pre('save', function(next) {
  * Model
  */
 
-module.exports = mongoose.model('Tree', Tree);
+module.exports = mongoose.model('Tree', TreeSchema);

@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var Node = new Schema({
+var NodeSchema = new Schema({
 
     _id: {
         type: String,
@@ -17,15 +17,11 @@ var Node = new Schema({
         'default': shortid.generate
     },
 
-    type: String, // article, category, search, note
-    name: String,
-    title: String, // for article and category
+    type: String, // article|category|search|note
+    name: String, // for all types
+    title: String, // for article|category
     query: String, // for search
     body: String, // for note
-    created: {
-        at: Date, // datetime stamp
-        by: String // author user id
-    },
 
     // D3 attributes
     index: Number,
@@ -34,8 +30,19 @@ var Node = new Schema({
     px: Number,
     py: Number,
     fixed: Boolean,
-    weight: Number
+    weight: Number,
+
+    // authorship
+    created: {
+        at: Date,
+        by: String // User ID
+    },
+    updated: {
+        at: Date,
+        by: String // User ID
+    }
 
 });
 
-module.exports = Node;
+
+module.exports = NodeSchema;

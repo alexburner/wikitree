@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var Link = new Schema({
+var LinkSchema = new Schema({
 
     _id: {
         type: String,
@@ -19,12 +19,18 @@ var Link = new Schema({
 
     sourceNodeId: String,
     targetNodeId: String,
-    backLinkId: String,
+    firstLinkId: String, // if this is a linkback
+
+    // authorship
     created: {
-        at: Date, // datetime stamp
-        by: String // author user id
+        at: Date,
+        by: String // User ID
+    },
+    updated: {
+        at: Date,
+        by: String // User ID
     }
 
 });
 
-module.exports = Link;
+module.exports = LinkSchema;

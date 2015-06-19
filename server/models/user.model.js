@@ -15,7 +15,7 @@ var Schema = mongoose.Schema;
  * Schema
  */
 
-var User = new Schema({
+var UserSchema = new Schema({
     _id: {
         type: String,
         unique: true,
@@ -28,7 +28,8 @@ var User = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     password: {
         type: String,
@@ -44,11 +45,11 @@ var User = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now
+        'default': Date.now
     }
 });
 
@@ -57,7 +58,7 @@ var User = new Schema({
  * Events
  */
 
-User.pre('save', function(next) {
+UserSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
     next();
 });
@@ -67,7 +68,7 @@ User.pre('save', function(next) {
  * Statics (exist on Model itself)
  */
 
-User.statics.generateHash = function (password) {
+UserSchema.statics.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
@@ -76,7 +77,7 @@ User.statics.generateHash = function (password) {
  * Methods (exist on Model instance)
  */
 
-User.methods.validatePassword = function (password) {
+UserSchema.methods.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
@@ -85,4 +86,4 @@ User.methods.validatePassword = function (password) {
  * Model
  */
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', UserSchema);
