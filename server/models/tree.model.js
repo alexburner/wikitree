@@ -25,6 +25,11 @@ var Tree = new Schema({
         'default': shortid.generate
     },
 
+    'public': {
+        type: Boolean,
+        'default': false
+    },
+
     name: String,
     nodes: [Node],
     links: [Link],
@@ -34,8 +39,14 @@ var Tree = new Schema({
         nextIds: Array // [Node ids]
     },
 
-    created_at: Date,
-    updated_at: Date
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 
@@ -45,9 +56,7 @@ var Tree = new Schema({
  */
 
 Tree.pre('save', function(next) {
-    var date = new Date();
-    this.created_at = this.created_at || date;
-    this.updated_at = date;
+    this.updatedAt = Date.now();
     next();
 });
 

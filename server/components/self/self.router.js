@@ -1,14 +1,13 @@
 'use strict';
 
+/**
+ * Self router
+ */
+
 var express = require('express');
 
 var auth = require('../../lib/auth');
 var endpoints = require('./self.endpoints');
-
-
-/**
- * Self router
- */
 
 module.exports = function () {
     var router = express.Router();

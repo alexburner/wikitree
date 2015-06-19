@@ -1,14 +1,13 @@
 'use strict';
 
-var passport = require('passport');
-
-var errors = require('../../lib/errors');
-var User = require('../users/user.model');
-
-
 /**
  * Auth endpoints
  */
+
+var passport = require('passport');
+
+var errors = require('../../lib/errors');
+var User = require('../../models/user.model');
 
 // POST - authenticate session
 module.exports.login = function (req, res, next) {

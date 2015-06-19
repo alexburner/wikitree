@@ -16,13 +16,11 @@ var Schema = mongoose.Schema;
  */
 
 var User = new Schema({
-
     _id: {
         type: String,
         unique: true,
         'default': shortid.generate
     },
-
     name: {
         type: String,
         required: true
@@ -40,10 +38,18 @@ var User = new Schema({
         type: Boolean,
         'default': false
     },
-
-    created_at: Date,
-    updated_at: Date
-
+    'public': {
+        type: Boolean,
+        'default': false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 
@@ -52,9 +58,7 @@ var User = new Schema({
  */
 
 User.pre('save', function(next) {
-    var date = new Date();
-    this.created_at = this.created_at || currentDate;
-    this.updated_at = currentDate;
+    this.updatedAt = Date.now();
     next();
 });
 

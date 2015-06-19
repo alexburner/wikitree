@@ -28,8 +28,14 @@ var Share = new Schema({
     toUserId: String,
     toTreeId: String,
 
-    created_at: Date,
-    updated_at: Date
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 
@@ -39,9 +45,7 @@ var Share = new Schema({
  */
 
 Share.pre('save', function(next) {
-    var date = new Date();
-    this.created_at = this.created_at || date;
-    this.updated_at = date;
+    this.updatedAt = Date.now();
     next();
 });
 

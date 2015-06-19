@@ -1,12 +1,11 @@
 'use strict';
 
-var errors = require('../../lib/errors');
-var User = require('./user.model');
-
-
 /**
- * Endpoints
+ * Users endpoints
  */
+
+var errors = require('../../lib/errors');
+var User = require('../../models/user.model');
 
 // GET - read all users
 module.exports.readAll = function (req, res, next) {

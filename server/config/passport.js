@@ -8,7 +8,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var errors = require('../lib/errors');
-var User = require('../components/users/user.model');
+var User = require('../models/user.model');
 
 
 module.exports = function () {

@@ -1,13 +1,12 @@
 'use strict';
 
-var express = require('express');
-
-var endpoints = require('./auth.endpoints');
-
-
 /**
  * Auth router
  */
+
+var express = require('express');
+
+var endpoints = require('./auth.endpoints');
 
 module.exports = function () {
     var router = express.Router();

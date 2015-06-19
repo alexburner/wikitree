@@ -1,12 +1,11 @@
 'use strict';
 
-var errors = require('../../lib/errors');
-var User = require('../users/user.model');
-
-
 /**
  * Self endpoints
  */
+
+var errors = require('../../lib/errors');
+var User = require('../../models/user.model');
 
 // GET - read self
 module.exports.read = function (req, res, next) {
