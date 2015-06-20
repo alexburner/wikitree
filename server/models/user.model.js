@@ -50,7 +50,6 @@ var UserSchema = new Schema({
         'default': false
     },
 
-    // meta
     createdAt: {
         type: Date,
         'default': Date.now

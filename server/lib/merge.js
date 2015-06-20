@@ -22,21 +22,21 @@ merge.nodesAndLinks = function (sets) {
 
 	sets.forEach(function (set) {
 
-		// add set nodes (skip if old dupe)
+		// add set nodes
 		set.nodes.forEach(function (node) {
 			var dupe = nodesById[node.id];
 			if (dupe && dupe.updated.at < node.updated.at) {
-				// there's a fresher node, skip
+				// duplicate & older, skip
 				return;
 			}
 			nodesById[node.id] = node;
 		});
 
-		// add set links (skip if old dupe)
+		// add set links
 		set.links.forEach(function (link) {
 			var dupe = linksById[link.id];
 			if (dupe && dupe.updated.at < link.updated.at) {
-				// there's a fresher link, skip
+				// duplicate & older, skip
 				return;
 			}
 			linksById[link.id] = link;
