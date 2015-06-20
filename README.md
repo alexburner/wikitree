@@ -18,34 +18,29 @@ $ npm install
 ```
 (which should also trigger `bower install`)
 
-## Running (simple)
+## Commands
 
-To get things going, just run:
+### Building client JS & CSS
+
+Build once
 ```
-$ npm start
-```
-(which should also trigger `gulp build`)
-
-## Running (complex)
-
-**If you want things to update as you code, run two processes...**
-
-For node start & restart on server code change:
-```
-$ nodemon server/server.js
+$ gulp build
 ```
 
-For gulp build & rebuild on client code change:
+Or, build & rebuild on change
 ```
 $ gulp watch
 ```
 
-## Testing
+### Starting node server
 
-For testing, run:
+Start once
 ```
-$ npm test
+$ node server/server.js
 ```
 
-
+Or, start & restart on change
+```
+$ nodemon server/server.js
+```
 
