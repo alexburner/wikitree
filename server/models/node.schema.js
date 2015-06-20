@@ -40,6 +40,12 @@ var NodeSchema = new Schema({
     updated: {
         at: Date,
         by: String // User ID
+    },
+
+    // soft delete
+    deleted: {
+        type: Boolean,
+        'default': false
     }
 
 });

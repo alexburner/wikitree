@@ -25,11 +25,6 @@ var TreeSchema = new Schema({
         'default': shortid.generate
     },
 
-    'public': {
-        type: Boolean,
-        'default': false
-    },
-
     name: String,
     nodes: [NodeSchema],
     links: [LinkSchema],
@@ -39,7 +34,14 @@ var TreeSchema = new Schema({
         nextIds: Array // [Node IDs]
     },
 
-    createdBy: String, // User ID
+    // owner's id
+    userID: String,
+
+    // shareable
+    'public': {
+        type: Boolean,
+        'default': false
+    },
 
     createdAt: {
         type: Date,
@@ -48,6 +50,12 @@ var TreeSchema = new Schema({
     updatedAt: {
         type: Date,
         'default': Date.now
+    },
+
+    // soft delete
+    deleted: {
+        type: Boolean,
+        'default': false
     }
 
 });

@@ -16,11 +16,13 @@ var Schema = mongoose.Schema;
  */
 
 var UserSchema = new Schema({
+
     _id: {
         type: String,
         unique: true,
         'default': shortid.generate
     },
+
     name: {
         type: String,
         required: true
@@ -35,14 +37,20 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
+
+    // NOT CURRENTLY USED
     admin: {
         type: Boolean,
         'default': false
     },
+
+    // viewable
     'public': {
         type: Boolean,
         'default': false
     },
+
+    // meta
     createdAt: {
         type: Date,
         'default': Date.now
@@ -50,7 +58,14 @@ var UserSchema = new Schema({
     updatedAt: {
         type: Date,
         'default': Date.now
+    },
+
+    // soft delete
+    deleted: {
+        type: Boolean,
+        'default': false
     }
+
 });
 
 

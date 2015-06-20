@@ -17,8 +17,8 @@ var LinkSchema = new Schema({
         'default': shortid.generate
     },
 
-    sourceId: String,
-    targetId: String,
+    sourceId: String, // Node ID
+    targetId: String, // Node ID
     firstLinkId: String, // if this is a linkback
 
     // authorship
@@ -29,6 +29,12 @@ var LinkSchema = new Schema({
     updated: {
         at: Date,
         by: String // User ID
+    },
+
+    // soft delete
+    deleted: {
+        type: Boolean,
+        'default': false
     }
 
 });

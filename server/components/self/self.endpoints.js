@@ -76,6 +76,25 @@ module.exports.delete = function (req, res, next) {
 
     /**
      * TODO remove user AND any trees(?)
+     *
+     *
+     *  update
+     *  - check if user has any shares
+     *  - if yes, soft delete user & trees
+     *  - if no, hard delete user & trees
+     *
+     *  OR
+     *  do we always keep trees?
+     *  to add to our big corpus of user interaction?
+     *  but, do we really want data
+     *  from the sort of people
+     *  that delete themselves?
+     *
+     *  besides
+     *  they deleted themselves
+     *  let them be, right?
+     *  focus on active users
+     *
      */
 
     return;

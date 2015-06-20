@@ -59,6 +59,10 @@ merge.nodesAndLinks = function (sets) {
 		links.push(linksById[id]);
 	});
 
+	// filter out any deleted objects
+	nodes = nodes.filter(function (o) { return !o.deleted });
+	links = links.filter(function (o) { return !o.deleted });
+
 	return {
 		nodes: nodes,
 		links: links
