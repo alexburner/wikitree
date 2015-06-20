@@ -17,8 +17,8 @@ var LinkSchema = new Schema({
         'default': shortid.generate
     },
 
-    sourceNodeId: String,
-    targetNodeId: String,
+    sourceId: String,
+    targetId: String,
     firstLinkId: String, // if this is a linkback
 
     // authorship
