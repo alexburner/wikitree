@@ -6,7 +6,7 @@ A web-based research tool, a visual mapping companion for your Wikipedia wanderi
 
 ## Installation
 
-Prereq: ensure you have `node`, `gulp`, and `bower` installed
+**Before you start&mdash;** install `mongo`, `redis`, `node`, `gulp`, and `bower`
 
 Fork & clone both the main repo and the env repo (these are designed to live as sibling directories)
 - Main repo: https://github.com/wikitree-website/wikitree
