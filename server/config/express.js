@@ -100,7 +100,8 @@ module.exports = function () {
             app.use('/', require(filename)());
         });
 
-    // api 404
+    // API 404
+    // (any unhandled api requests end here)
     app.use('/api/v1', function (req, res, next) {
         next(errors.notFound());
     });
