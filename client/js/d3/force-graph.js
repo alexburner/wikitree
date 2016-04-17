@@ -538,6 +538,10 @@ ForceGraph.prototype.addNoteNode = function (d, g) {
         d
     );
 
+
+    // run graph
+    self.tick();
+
 };
 
 ForceGraph.prototype.addCursorNode = function (d, g) {
@@ -657,26 +661,33 @@ ForceGraph.prototype.makeTick = function () {
         return 'translate(' + d.x + ',' + d.y + ')';
     }
     return function () {
-        self.underlink
-            .attr('x1', x1)
-            .attr('y1', y1)
-            .attr('x2', x2)
-            .attr('y2', y2);
-        self.link
-            .attr('x1', x1)
-            .attr('y1', y1)
-            .attr('x2', x2)
-            .attr('y2', y2);
-        self.node
-            .attr('transform', transform);
-        self.updatePopovers();
+        self.force.start();
+        for (var i = 0, n = self.nodes.length, l = n * n; i < l; ++i) {
+            setTimeout(self.force.tick, 0);
+        }
+        setTimeout(function () {
+            self.force.stop();
+            self.underlink
+                .attr('x1', x1)
+                .attr('y1', y1)
+                .attr('x2', x2)
+                .attr('y2', y2);
+            self.link
+                .attr('x1', x1)
+                .attr('y1', y1)
+                .attr('x2', x2)
+                .attr('y2', y2);
+            self.node
+                .attr('transform', transform);
+            self.updatePopovers();
+        }, 0);
     };
 };
 
 ForceGraph.prototype.makeForce = function () {
     var self = this;
     return d3.layout.force()
-        .size([this.width, this.height])
+        .size([self.width, self.height])
         .linkDistance(100)
         .linkDistance(function (d) {
             switch (d.source.type) {
@@ -715,8 +726,8 @@ ForceGraph.prototype.makeForce = function () {
         .gravity(0.03)
         .friction(0.8)
         .theta(0.9)
-        .alpha(0.1)
-        .on('tick', this.tick);
+        .alpha(0.1);
+        // .on('tick', self.tick);
 
 };
 
